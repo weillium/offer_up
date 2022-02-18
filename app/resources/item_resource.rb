@@ -12,6 +12,8 @@ class ItemResource < ApplicationResource
 
   # Direct associations
 
+  belongs_to :category
+
   has_many   :purchases
 
   has_many   :comments
