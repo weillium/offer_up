@@ -16,7 +16,7 @@
 
     <%= f.label :item_id %>
     <!-- Input for item_id start -->
-    <%= f.number_field :item_id, class: item_class, placeholder: "Enter item" %>
+    <%= f.collection_select :item_id, Item.all, :id, :to_s, {}, class: "form-control" %>
     <!-- Input for item_id end -->
     <% if item_was_invalid %>
       <% comment.errors.full_messages_for(:item).each do |message| %>
