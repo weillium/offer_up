@@ -39,7 +39,11 @@
 
       <dt>Location url</dt>
       <!-- Display location_url start -->
-      <dd><%= item.location_url %></dd>
+      <dd>
+        <div>
+          <%= render partial: "items/one_photo_map" %>
+        </div>
+      </dd>
       <!-- Display location_url end -->
 
     </dl>
