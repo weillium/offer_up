@@ -1,15 +1,15 @@
 class PurchasesController < ApplicationController
-  before_action :set_purchase, only: [:show, :edit, :update, :destroy]
+  before_action :set_purchase, only: %i[show edit update destroy]
 
   # GET /purchases
   def index
     @q = Purchase.ransack(params[:q])
-    @purchases = @q.result(:distinct => true).includes(:user, :item).page(params[:page]).per(10)
+    @purchases = @q.result(distinct: true).includes(:user,
+                                                    :item).page(params[:page]).per(10)
   end
 
   # GET /purchases/1
-  def show
-  end
+  def show; end
 
   # GET /purchases/new
   def new
@@ -17,17 +17,16 @@ class PurchasesController < ApplicationController
   end
 
   # GET /purchases/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /purchases
   def create
     @purchase = Purchase.new(purchase_params)
 
     if @purchase.save
-      message = 'Purchase was successfully created.'
-      if Rails.application.routes.recognize_path(request.referrer)[:controller] != Rails.application.routes.recognize_path(request.path)[:controller]
-        redirect_back fallback_location: request.referrer, notice: message
+      message = "Purchase was successfully created."
+      if Rails.application.routes.recognize_path(request.referer)[:controller] != Rails.application.routes.recognize_path(request.path)[:controller]
+        redirect_back fallback_location: request.referer, notice: message
       else
         redirect_to @purchase, notice: message
       end
@@ -39,7 +38,7 @@ class PurchasesController < ApplicationController
   # PATCH/PUT /purchases/1
   def update
     if @purchase.update(purchase_params)
-      redirect_to @purchase, notice: 'Purchase was successfully updated.'
+      redirect_to @purchase, notice: "Purchase was successfully updated."
     else
       render :edit
     end
@@ -49,22 +48,22 @@ class PurchasesController < ApplicationController
   def destroy
     @purchase.destroy
     message = "Purchase was successfully deleted."
-    if Rails.application.routes.recognize_path(request.referrer)[:controller] != Rails.application.routes.recognize_path(request.path)[:controller]
-      redirect_back fallback_location: request.referrer, notice: message
+    if Rails.application.routes.recognize_path(request.referer)[:controller] != Rails.application.routes.recognize_path(request.path)[:controller]
+      redirect_back fallback_location: request.referer, notice: message
     else
       redirect_to purchases_url, notice: message
     end
   end
 
-
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_purchase
-      @purchase = Purchase.find(params[:id])
-    end
 
-    # Only allow a trusted parameter "white list" through.
-    def purchase_params
-      params.require(:purchase).permit(:item_id, :user_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_purchase
+    @purchase = Purchase.find(params[:id])
+  end
+
+  # Only allow a trusted parameter "white list" through.
+  def purchase_params
+    params.require(:purchase).permit(:item_id, :user_id)
+  end
 end

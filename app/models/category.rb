@@ -2,7 +2,7 @@ class Category < ApplicationRecord
   # Direct associations
 
   has_many   :items,
-             :dependent => :destroy
+             dependent: :destroy
 
   # Indirect associations
 
@@ -13,5 +13,4 @@ class Category < ApplicationRecord
   def to_s
     name
   end
-
 end
