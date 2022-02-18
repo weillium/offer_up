@@ -1,6 +1,8 @@
 class Item < ApplicationRecord
   # Direct associations
 
+  belongs_to :category
+
   has_many   :purchases,
              :dependent => :destroy
 
