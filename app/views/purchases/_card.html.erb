@@ -7,12 +7,20 @@
     <dl class="mb-1">
       <dt>Item</dt>
       <!-- Display item_id start -->
-      <dd><%= purchase.item_id %></dd>
+      <dd>
+        <% if @purchase.item.present? %>
+          <%= link_to purchase.item, purchase.item %>
+        <% end %>
+      </dd>
       <!-- Display item_id end -->
 
       <dt>User</dt>
       <!-- Display user_id start -->
-      <dd><%= purchase.user_id %></dd>
+      <dd>
+        <% if @purchase.user.present? %>
+          <%= link_to purchase.user, purchase.user %>
+        <% end %>
+      </dd>
       <!-- Display user_id end -->
 
     </dl>
