@@ -24,7 +24,12 @@ class PurchasesController < ApplicationController
     @purchase = Purchase.new(purchase_params)
 
     if @purchase.save
-      redirect_to @purchase, notice: 'Purchase was successfully created.'
+      message = 'Purchase was successfully created.'
+      if Rails.application.routes.recognize_path(request.referrer)[:controller] != Rails.application.routes.recognize_path(request.path)[:controller]
+        redirect_back fallback_location: request.referrer, notice: message
+      else
+        redirect_to @purchase, notice: message
+      end
     else
       render :new
     end

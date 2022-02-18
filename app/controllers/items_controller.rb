@@ -8,6 +8,8 @@ class ItemsController < ApplicationController
 
   # GET /items/1
   def show
+    @purchase = Purchase.new
+    @comment = Comment.new
   end
 
   # GET /items/new
@@ -24,7 +26,12 @@ class ItemsController < ApplicationController
     @item = Item.new(item_params)
 
     if @item.save
-      redirect_to @item, notice: 'Item was successfully created.'
+      message = 'Item was successfully created.'
+      if Rails.application.routes.recognize_path(request.referrer)[:controller] != Rails.application.routes.recognize_path(request.path)[:controller]
+        redirect_back fallback_location: request.referrer, notice: message
+      else
+        redirect_to @item, notice: message
+      end
     else
       render :new
     end
