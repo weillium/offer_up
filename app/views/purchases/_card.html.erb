@@ -6,22 +6,18 @@
   <div class="card-body">
     <dl class="mb-1">
       <dt>Item</dt>
-      <!-- Display item_id start -->
       <dd>
         <% if @purchase.item.present? %>
           <%= link_to purchase.item, purchase.item %>
         <% end %>
       </dd>
-      <!-- Display item_id end -->
 
       <dt>User</dt>
-      <!-- Display user_id start -->
       <dd>
         <% if @purchase.user.present? %>
           <%= link_to purchase.user, purchase.user %>
         <% end %>
       </dd>
-      <!-- Display user_id end -->
 
     </dl>
 
@@ -30,21 +26,17 @@
         <%= link_to_show_or_back purchase, '<i class="fas fa-search-plus"></i>'.html_safe, '<i class="fas fa-chevron-left"></i>'.html_safe, class: "btn btn-block btn-outline-secondary" %>
       </div>
 
-      <!-- Edit link purchase start -->
       <div class="col">
         <%= link_to edit_purchase_url(purchase), class: "btn btn-block btn-outline-secondary" do %>
           <i class="fas fa-edit"></i>
         <% end %>
       </div>
-      <!-- Edit link purchase end -->
 
-      <!-- Delete link purchase start -->
       <div class="col">
         <%= link_to purchase, method: :delete, data: { confirm: "Do you really want to delete this purchase?" }, class: "btn btn-block btn-outline-secondary" do %>
           <i class="fas fa-trash-alt"></i>
         <% end %>
       </div>
-      <!-- Delete link purchase end -->
     </div>
   </div>
 
