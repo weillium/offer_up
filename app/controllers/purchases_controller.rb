@@ -3,7 +3,8 @@ class PurchasesController < ApplicationController
 
   # GET /purchases
   def index
-    @purchases = Purchase.page(params[:page]).per(10)
+    @q = Purchase.ransack(params[:q])
+    @purchases = @q.result(:distinct => true).includes(:user, :item).page(params[:page]).per(10)
   end
 
   # GET /purchases/1
